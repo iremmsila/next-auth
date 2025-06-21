@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import Auth0Provider from "next-auth/providers/auth0";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import { UserRole } from "@/types/auth";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -27,40 +28,59 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 
-callbacks: {
-async jwt({ token, account, profile }) {
-  if (account && profile) {
-    const prof = profile as any;
-
-    token.role = prof["https://your-app.com/role"] || "user";
-    token.accessToken = account.access_token;
-
-    // ✅ updated_at bilgisi varsa token'a ekle
-    if (prof.updated_at) {
-      token.updated_at = prof.updated_at;
-    }
-  }
-  return token;
-},
+  callbacks: {
+    async jwt({ token, account, profile, user }) {
+      if (account && profile) {
+        const prof = profile as any;
 
 
-  async session({ session, token }) {
-    session.accessToken = token.accessToken as string;
-    session.user.role = token.role as string;
+        token.role = prof["https://your-app.com/role"] || "user";
+        token.permissions = prof["https://your-app.com/permissions"] || ["read:profile"];
+        token.accessToken = account.access_token ?? "";
 
-    // ✅ updated_at bilgisini session.user'a ekle
-    if (token.updated_at) {
-      session.user.updated_at = token.updated_at as string;
-    }
 
-    return session;
+
+        if (account.provider !== 'auth0') {
+          const adminEmails = ['iremsilasarikaya@gmail.com'];
+          
+          if (adminEmails.includes(prof.email || '')) {
+            token.role = 'admin';
+            token.permissions = ['read:all', 'write:all', 'delete:all', 'manage:users'];
+          } else {
+            token.role = 'user';
+            token.permissions = ['read:profile'];
+          }
+        }
+
+        if (prof.updated_at) {
+          token.updated_at = prof.updated_at;
+        }
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.role = token.role as UserRole;
+        session.user.permissions = token.permissions as string[];
+        session.accessToken = token.accessToken as string;
+
+        if (token.updated_at) {
+          session.user.updated_at = token.updated_at as string;
+        }
+      }
+
+      return session;
+    },
+
+    async redirect({ url, baseUrl }) {
+      if (url === baseUrl) {
+        return `${baseUrl}/dashboard`;
+      }
+      return url.startsWith("/") ? `${baseUrl}${url}` : url;
+    },
   },
-
-  async redirect({ url, baseUrl }) {
-    return url.startsWith("/") ? `${baseUrl}${url}` : url;
-  },
-},
-
 
   pages: {
     signIn: "/login",
@@ -69,9 +89,9 @@ async jwt({ token, account, profile }) {
 
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60, // 24 saat
+    maxAge: 24 * 60 * 60, 
   },
 
   secret: process.env.NEXTAUTH_SECRET,
-  debug: true,
+  debug: process.env.NODE_ENV === 'development',
 };
