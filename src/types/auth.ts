@@ -7,14 +7,13 @@ declare module "next-auth" {
 
   interface Session {
     user: {
-      id: string; 
-      
+      id: string;
       role?: string;
       email: string
   image?: string
-
   status: 'active' | 'inactive'
   createdAt?: string
+  updated_at?: string
   lastLogin?: string
   location?: string
   phone?: string
@@ -33,16 +32,17 @@ declare module "next-auth/jwt" {
 
 
 export interface AuthUser {
-  id: string
-  name: string
-  email: string
-  image?: string
-  role: 'admin' | 'user' | 'moderator'
-  status: 'active' | 'inactive'
-  createdAt?: string
-  lastLogin?: string
-  location?: string
-  phone?: string
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+  createdAt: string;
+  updated_at?: string;
+  lastLogin: string;
+  location: string;
+  phone: string;
+  image: string | null;
 }
 export interface UserProfileProps {
   user: AuthUser

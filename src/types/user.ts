@@ -2,13 +2,14 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'admin' | 'moderator' | 'user';
-  status: 'active' | 'inactive';
+  role: string;
+  status: string;
   createdAt: string;
+  updated_at?: string;
   lastLogin: string;
   location: string;
   phone: string;
-  image?: string | null;
+  image: string | null;
 }
 
 export interface RoleConfig {

@@ -1,4 +1,6 @@
 'use client';
+
+import { useState } from "react";
 import { Mail } from "lucide-react";
 import { User } from "../../../types/user";
 import ProfileHeader from "../../layout/ProfileHeader";
@@ -12,19 +14,12 @@ import UserAvatar from "./UserAvatar";
 import UserBadges from "./UserBadges";
 import UserDetails from "./UserDetails";
 
-export default function UserProfile() {
-  const currentUser: User = {
-    id: "1",
-    name: "Ahmet Yılmaz",
-    email: "ahmet.yilmaz@example.com",
-    role: "admin",
-    status: "active",
-    createdAt: "15 Ocak 2024",
-    lastLogin: "2 dakika önce",
-    location: "İstanbul, Türkiye",
-    phone: "+90 555 123 45 67",
-    image: null
-  };
+interface UserProfileClientProps {
+  user: User;
+}
+
+export default function UserProfileClient({ user: initialUser }: UserProfileClientProps) {
+  const [currentUser, setCurrentUser] = useState<User>(initialUser);
 
   const activities = [
     { id: "1", text: "Sisteme giriş yaptı", time: "2 dk önce", type: "emerald" as const },
@@ -41,37 +36,23 @@ export default function UserProfile() {
 
   const roleConfig = getRoleConfig(currentUser.role);
 
-  const handleEdit = () => {
-    console.log("Düzenle clicked");
-  };
-
-  const handleSettings = () => {
-    console.log("Ayarlar clicked");
-  };
-
-  const handleToggleStatus = () => {
-    console.log("Durum değiştir clicked");
-  };
-
-  const handleDelete = () => {
-    console.log("Sil clicked");
-  };
+  const handleEdit = () => console.log("Düzenle clicked");
+  const handleSettings = () => console.log("Ayarlar clicked");
+  const handleToggleStatus = () => console.log("Durum değiştir clicked");
+  const handleDelete = () => console.log("Sil clicked");
 
   return (
     <div className="user-profile-container">
       <BackgroundElements />
-
       <div className="main-container">
-        <ProfileHeader 
-          title="Kullanıcı Profili" 
+        <ProfileHeader
+          title="Kullanıcı Profili"
           subtitle="Kullanıcı detayları ve yönetim seçenekleri" 
         />
-
         <div className="profile-grid">
           <div>
             <div className="main-profile-card">
               <div className="card-gradient-overlay"></div>
-              
               <div className="profile-content">
                 <div className="profile-user-section">
                   <div className="user-info">
@@ -89,7 +70,7 @@ export default function UserProfile() {
 
                 <UserDetails user={currentUser} />
 
-                <UserActions 
+                <UserActions
                   user={currentUser}
                   onEdit={handleEdit}
                   onSettings={handleSettings}
@@ -100,15 +81,13 @@ export default function UserProfile() {
             </div>
           </div>
           <div className="sidebar">
-            <StatsCard 
+            <StatsCard
               totalLogins={142}
               thisMonth={23}
               averageDuration="2.5h"
               lastActivity="Az önce"
             />
-
             <ActivityTimeline activities={activities} />
-
           </div>
         </div>
       </div>
