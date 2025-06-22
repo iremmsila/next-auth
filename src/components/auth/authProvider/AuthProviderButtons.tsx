@@ -1,3 +1,4 @@
+'use client'
 import { AuthProvider } from "../../../types/AuthItems";
 import AuthDivider from "../ui/AuthDivider";
 import SocialButton from "../ui/SocialButton";

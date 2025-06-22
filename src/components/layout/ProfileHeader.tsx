@@ -1,5 +1,4 @@
-import { MoreHorizontal } from "lucide-react";
-import LogoutButton from "../auth/logoutButton/LogoutButton";
+import { ProfileHeaderActions } from "../layout/ProfileHeaderActions";
 
 interface ProfileHeaderProps {
   title: string;
@@ -13,12 +12,7 @@ export default function ProfileHeader({ title, subtitle }: ProfileHeaderProps) {
         <h1 className="profile-title">{title}</h1>
         <p className="profile-subtitle">{subtitle}</p>
       </div>
-      <div className="header-actions">
-        <LogoutButton />
-        <button className="icon-button">
-          <MoreHorizontal className="icon icon-transition icon-scale" />
-        </button>
-      </div>
+      <ProfileHeaderActions />
     </div>
   );
 }
