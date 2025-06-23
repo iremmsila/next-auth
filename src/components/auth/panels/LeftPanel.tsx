@@ -1,4 +1,4 @@
-import { FeatureItem, StatItem } from "../../../types/AuthItems";
+import { FeatureItem, StatItem } from "../../../types/authItems";
 import AuthTitle from "../authProvider/AuthTitle";
 import FeatureList from "../FeatureList";
 import StatsGrid from "../status/StatsGrid";

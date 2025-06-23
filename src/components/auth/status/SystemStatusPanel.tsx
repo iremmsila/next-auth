@@ -1,4 +1,4 @@
-import { StatusItem } from "../../../types/AuthItems";
+import { StatusItem } from "../../../types/authItems";
 
 interface SystemStatusPanelProps {
   statusItems: StatusItem[];

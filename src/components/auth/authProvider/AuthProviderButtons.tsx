@@ -1,8 +1,8 @@
 'use client'
-import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { AuthProvider } from "../../../types/AuthItems";
+import { useState } from 'react';
+import { AuthProvider } from "../../../types/authItems";
 import AuthDivider from "../ui/AuthDivider";
 import SocialButton from "../ui/SocialButton";
 
@@ -203,7 +203,7 @@ export default function AuthProviderButtons({
   </>
 )}
 
-      <AuthDivider text="veya" />
+      <AuthDivider  />
 
       <SocialButton
         provider="auth0"

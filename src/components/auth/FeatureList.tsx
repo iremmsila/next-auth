@@ -1,4 +1,4 @@
-import { FeatureItem } from "../../types/AuthItems";
+import { FeatureItem } from "../../types/authItems";
 
 interface FeatureListProps {
   features: FeatureItem[];

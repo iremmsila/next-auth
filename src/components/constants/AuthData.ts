@@ -1,4 +1,4 @@
-import { FeatureItem, StatItem, StatusItem } from "../../types/AuthItems";
+import { FeatureItem, StatItem, StatusItem } from "@/types/authItems";
 
 export const AUTH_FEATURES: FeatureItem[] = [
   { icon: '🔐', text: 'Auth0 OAuth Integration' },

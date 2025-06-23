@@ -12,9 +12,9 @@ export function useAuth() {
   }
 }*/
 
-import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { AuthProvider } from "../types/AuthItems";
+import { useState } from "react";
+import { AuthProvider } from "../types/authItems";
 
 export function useAuth() {
   const [isLoading, setIsLoading] = useState<boolean>(false);

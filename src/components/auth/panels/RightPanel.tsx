@@ -1,7 +1,7 @@
-import { AuthProvider, StatusItem } from "../../../types/AuthItems";
+import { AuthProvider, StatusItem } from "../../../types/authItems";
 import AuthProviderButtons from "../authProvider/AuthProviderButtons";
-import AuthLogo from "../ui/AuthLogo";
 import SystemStatusPanel from "../status/SystemStatusPanel";
+import AuthLogo from "../ui/AuthLogo";
 
 interface RightPanelProps {
   onLogin: (provider: AuthProvider) => void;

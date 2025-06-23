@@ -2,7 +2,7 @@
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
-import { Activity, Clock, Edit3, Plus, Search, Shield, Trash2, Users } from "lucide-react"
+import { Activity, Clock, Edit3, Plus, Shield, Trash2, Users } from "lucide-react"
 import "../admin/Admin.css"
 import AdminProfileButton from "./AdminProfileButton"
 

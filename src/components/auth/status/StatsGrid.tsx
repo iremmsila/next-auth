@@ -1,4 +1,4 @@
-import { StatItem } from "../../../types/AuthItems";
+import { StatItem } from "../../../types/authItems";
 
 interface StatsGridProps {
   stats: StatItem[];

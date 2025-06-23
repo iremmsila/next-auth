@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { AuthProvider } from "../../../types/AuthItems";
+import { AuthProvider } from "../../../types/authItems";
 import LoadingSpinner from "../shared/LoadingSpinner";
 
 interface SocialButtonProps {

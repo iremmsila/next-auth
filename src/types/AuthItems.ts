@@ -13,10 +13,10 @@ export interface StatusItem {
   colorClass: string;
 }
 
-// AuthProvider type'ına credentials eklendi
+
 export type AuthProvider = 'auth0' | 'google' | 'github' | 'credentials';
 
-// Ek auth ile ilgili interface'ler
+
 export interface LoginCredentials {
   email: string;
   password: string;
