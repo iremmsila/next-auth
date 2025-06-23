@@ -1,6 +1,8 @@
 🔐 Auth0 Entegrasyonu – Next.js Uygulaması
 Bu proje, Auth0 kimlik sağlayıcısını kullanarak kullanıcıların e-posta/şifre ve sosyal oturum açma seçenekleri ile güvenli bir şekilde giriş yapmalarını sağlamaktadır. Geliştirilen yapı test edilebilirlik, rol tabanlı erişim kontrolü ve sade kullanıcı deneyimi odaklıdır.
 
+------
+
 📦 Kullanılan Teknolojiler
 Next.js
 
@@ -14,6 +16,7 @@ Role-based Authorization
 
 Modern UI
 
+------
 
 🔐 Kimlik Doğrulama ve Yetkilendirme Özeti
 Bu proje, kullanıcı deneyimini artırmak amacıyla Auth0, Google ve GitHub olmak üzere üç farklı giriş seçeneği sunan güvenli bir kimlik doğrulama sistemi içerir.
@@ -28,6 +31,7 @@ Yönetici paneli, yalnızca admin rolüne sahip kullanıcılara görünür ve er
 
 ✅ Bu yapı, kimlik doğrulama ve yetkilendirme süreçlerinin güvenli ve kullanıcı dostu bir şekilde yönetilmesini sağlar.
 
+------
 
 ✅ Test Durumu
 Gerekli testler gerçekleştirilmiş ve başarıyla tamamlanmıştır:
@@ -40,7 +44,12 @@ Auth Configuration
 
 ✅ Gerekli callback fonksiyonları başarıyla uygulanmıştır
 
+------
 
+🐳 Docker Desteği
+Bu proje, Docker desteği ile kolayca çalıştırılabilir ve dağıtılabilir. Hem geliştirme ortamı hem de üretim ortamı için uygundur.
+
+------
 
 🖼️ Uygulamaya Dair Görseller
 
