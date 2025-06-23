@@ -75,7 +75,7 @@ export interface AuthSession {
   expires: string;
 }
 
-// NextAuth module augmentation
+
 declare module "next-auth" {
   interface Session {
     user: CustomUser;

@@ -1,4 +1,7 @@
 'use client'
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { AuthProvider } from "../../../types/AuthItems";
 import AuthDivider from "../ui/AuthDivider";
 import SocialButton from "../ui/SocialButton";
@@ -6,9 +9,48 @@ import SocialButton from "../ui/SocialButton";
 interface AuthProviderButtonsProps {
   onLogin: (provider: AuthProvider) => void;
   isLoading: boolean;
+  showEmailPassword?: boolean;
+  callbackUrl?: string;
 }
 
-export default function AuthProviderButtons({ onLogin, isLoading }: AuthProviderButtonsProps) {
+export default function AuthProviderButtons({ 
+  onLogin, 
+  isLoading, 
+  showEmailPassword = true,
+  callbackUrl = '/dashboard'
+}: AuthProviderButtonsProps) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isEmailLoading, setIsEmailLoading] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsEmailLoading(true);
+    setEmailError('');
+
+    try {
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+        callbackUrl,
+      });
+
+      if (result?.error) {
+        setEmailError('E-posta veya şifre hatalı. Lütfen tekrar deneyin.');
+      } else if (result?.ok) {
+        router.push(callbackUrl);
+      }
+    } catch (error) {
+      setEmailError('Bir hata oluştu. Lütfen tekrar deneyin.');
+    } finally {
+      setIsEmailLoading(false);
+    }
+  };
+
   const GoogleIcon = () => (
     <svg
       width="20"
@@ -54,8 +96,115 @@ export default function AuthProviderButtons({ onLogin, isLoading }: AuthProvider
     </svg>
   );
 
+  const EyeIcon = () => (
+    <svg
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      className="text-gray-400"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+      />
+    </svg>
+  );
+
+  const EyeOffIcon = () => (
+    <svg
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      className="text-gray-400"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
+      />
+    </svg>
+  );
+
   return (
-    <>
+  <>
+    {showEmailPassword && (
+  <>
+    <form onSubmit={handleEmailLogin} className="auth-form">
+      <div className="form-group">
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          E-posta Adresi
+        </label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="w-full"
+          placeholder="email@example.com"
+          disabled={isEmailLoading}
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          Şifre
+        </label>
+        <div className="password-container">
+          <input
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full"
+            placeholder="••••••••"
+            disabled={isEmailLoading}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="password-toggle"
+            disabled={isEmailLoading}
+          >
+            {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+          </button>
+        </div>
+      </div>
+
+      {emailError && (
+        <div className="error-message">
+          {emailError}
+        </div>
+      )}
+
+<button
+  type="submit"
+  className={`btn-submit ${isEmailLoading ? 'loading' : ''}`}
+  disabled={isEmailLoading || !email || !password}
+>
+        {isEmailLoading && <span className="spinner"></span>}
+        {isEmailLoading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
+      </button>
+    </form>
+  </>
+)}
+
+      <AuthDivider text="veya" />
+
       <SocialButton
         provider="auth0"
         onClick={onLogin}

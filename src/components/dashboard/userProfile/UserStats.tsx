@@ -13,6 +13,7 @@ import UserActions from "./UserActions";
 import UserAvatar from "./UserAvatar";
 import UserBadges from "./UserBadges";
 import UserDetails from "./UserDetails";
+import { useRole } from "@/hooks/useRole";
 
 interface UserProfileClientProps {
   user: User;
@@ -34,7 +35,9 @@ export default function UserProfileClient({ user: initialUser }: UserProfileClie
     { id: "4", name: "Raporlar", granted: true }
   ];
 
-  const roleConfig = getRoleConfig(currentUser.role);
+  // getRoleConfig fonksiyonunu kullanarak role string'ini RoleConfig'e dönüştür
+  const { roleConfig } = useRole();
+
 
   const handleEdit = () => console.log("Düzenle clicked");
   const handleSettings = () => console.log("Ayarlar clicked");
