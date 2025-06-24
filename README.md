@@ -1,3 +1,17 @@
+!Test için tanımlanan kullanıcılar:
+
+(normal kullanıcıyı (user rolünü) herhangi bir giriş sonrası test edebilirsiniz ama admin rolü özel tanımlandığı için bilgileri verme ihtiyacı duydum)
+
+Admin Kullanıcı
+• E-posta: admin@gmail.com
+• Şifre: Admin123Admin
+
+Normal Kullanıcı
+• E-posta: test@gmail.com
+• Şifre: iybJAv6V!G5Q#ab
+
+------
+
 🔐 Auth0 Entegrasyonu – Next.js Uygulaması
 Bu proje, Auth0 kimlik sağlayıcısını kullanarak kullanıcıların e-posta/şifre ve sosyal oturum açma seçenekleri ile güvenli bir şekilde giriş yapmalarını sağlamaktadır. Geliştirilen yapı test edilebilirlik, rol tabanlı erişim kontrolü ve sade kullanıcı deneyimi odaklıdır.
 
